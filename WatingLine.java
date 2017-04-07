@@ -9,7 +9,7 @@ import java.io.OutputStreamWriter;
 import java.net.Socket;
 
 /**
- * ÓÃÀ´²»¶ÏÑ­»·½ÓÊÜÓÃ»§Á¬½ÓÇëÇó£¬²¢×÷³öÏàÓ¦´¦Àí£¬ĞÂ½¨ÏàÓ¦µÄsocketµÄÏß³Ì
+ * ç”¨æ¥ä¸æ–­å¾ªç¯æ¥å—ç”¨æˆ·è¿æ¥è¯·æ±‚ï¼Œå¹¶ä½œå‡ºç›¸åº”å¤„ç†ï¼Œæ–°å»ºç›¸åº”çš„socketçš„çº¿ç¨‹
  * 
  * @author Mottled
  *
@@ -27,10 +27,10 @@ public class WatingLine implements Runnable {
 			try {
 				unknowSocket = m.getSrvSocket().accept();
 			} catch (IOException e) {
-				System.out.println("tcpServer½ÓÊÕÊı¾İÊ±·¢ÉúÒ»¸ö´íÎó");
+				System.out.println("tcpServeræ¥æ”¶æ•°æ®æ—¶å‘ç”Ÿä¸€ä¸ªé”™è¯¯");
 				e.printStackTrace();
 			}
-			System.out.println("Ò»¸ö¿Í»§¶Ë³¢ÊÔÁ¬½Ó£¬ipµØÖ·Îª£º" + unknowSocket.getInetAddress());
+			System.out.println("ä¸€ä¸ªå®¢æˆ·ç«¯å°è¯•è¿æ¥ï¼Œipåœ°å€ä¸ºï¼š" + unknowSocket.getInetAddress());
 			Thread handle = new Thread(new HandleSocket(unknowSocket,m));
 			handle.start();
 
@@ -54,7 +54,7 @@ public class WatingLine implements Runnable {
 				in = new BufferedReader(new InputStreamReader(s.getInputStream()));
 				out = new DataOutputStream(s.getOutputStream());
 			} catch (IOException e) {
-				System.out.println("´´½¨Óë¿Í»§¶ËµÄĞÅÏ¢Í¨µÀÊ±·¢ÉúÒ»¸ö´íÎó,¿ÉÄÜÊÇ¿Í»§¶ËÒÑ¶Ï¿ªÁ¬½Ó");
+				System.out.println("åˆ›å»ºä¸å®¢æˆ·ç«¯çš„ä¿¡æ¯é€šé“æ—¶å‘ç”Ÿä¸€ä¸ªé”™è¯¯,å¯èƒ½æ˜¯å®¢æˆ·ç«¯å·²æ–­å¼€è¿æ¥");
 				e.printStackTrace();
 
 				try {
@@ -70,14 +70,14 @@ public class WatingLine implements Runnable {
 				handleCode = in.readLine();
 				System.out.println(handleCode);
 			} catch (IOException e) {
-				System.out.println("½ÓÊÜ´Ó¿Í»§¶Ë·¢ËÍµÄÊ¶±ğÂëÊ±·¢ÉúÒ»¸ö´íÎó,¿ÉÄÜÊÇ¿Í»§¶ËÒÑ¶Ï¿ªÁ¬½Ó");
+				System.out.println("æ¥å—ä»å®¢æˆ·ç«¯å‘é€çš„è¯†åˆ«ç æ—¶å‘ç”Ÿä¸€ä¸ªé”™è¯¯,å¯èƒ½æ˜¯å®¢æˆ·ç«¯å·²æ–­å¼€è¿æ¥");
 
 				try {
 					in.close();
 					out.close();
 					s.close();
 				} catch (IOException e1) {
-					// TODO ×Ô¶¯Éú³ÉµÄ catch ¿é
+					// TODO è‡ªåŠ¨ç”Ÿæˆçš„ catch å—
 					e1.printStackTrace();
 				}
 
@@ -86,19 +86,19 @@ public class WatingLine implements Runnable {
 			}
 
 			if (handleCode != null) {
-				// ÈôÊÇ¿ÕĞĞ£¬ÔòÔÙ¶ÁÈ¡ÏÂÒ»ĞĞ¡£
+				// è‹¥æ˜¯ç©ºè¡Œï¼Œåˆ™å†è¯»å–ä¸‹ä¸€è¡Œã€‚
 				while (handleCode.matches("^[\\s&&[^\\n]]*\\n$")) {
 					try {
 						handleCode = in.readLine();
 					} catch (IOException e) {
-						System.out.println("½ÓÊÜ´Ó¿Í»§¶Ë·¢ËÍµÄÊ¶±ğÂëÊ±·¢ÉúÒ»¸ö´íÎó");
+						System.out.println("æ¥å—ä»å®¢æˆ·ç«¯å‘é€çš„è¯†åˆ«ç æ—¶å‘ç”Ÿä¸€ä¸ªé”™è¯¯");
 
 						try {
 							in.close();
 							out.close();
 							s.close();
 						} catch (IOException e1) {
-							// TODO ×Ô¶¯Éú³ÉµÄ catch ¿é
+							// TODO è‡ªåŠ¨ç”Ÿæˆçš„ catch å—
 							e1.printStackTrace();
 						}
 
@@ -106,9 +106,9 @@ public class WatingLine implements Runnable {
 						return;
 					}
 				}
-				//Èô·Ç¿ÕĞĞ£¬Ôò¶ÁÈ¡Ö¸Áî
+				//è‹¥éç©ºè¡Œï¼Œåˆ™è¯»å–æŒ‡ä»¤
 				if(handleCode.matches("a")){
-					System.out.println("½ÓÊÕµ½¿Í»§¶ËÊı¾İ£¡code:"+handleCode);
+					System.out.println("æ¥æ”¶åˆ°å®¢æˆ·ç«¯æ•°æ®ï¼code:"+handleCode);
 					if(this.m.device == null)return;
 					BufferedWriter br;
 					try {
@@ -116,27 +116,27 @@ public class WatingLine implements Runnable {
 						br.write("a");
 						br.flush();
 					} catch (IOException e) {
-						// TODO ×Ô¶¯Éú³ÉµÄ catch ¿é
-						System.out.println("ÓëÉè±¸¶ËµÄÁ¬½Ó³öÏÖÎÊÌâ£¡");
+						// TODO è‡ªåŠ¨ç”Ÿæˆçš„ catch å—
+						System.out.println("ä¸è®¾å¤‡ç«¯çš„è¿æ¥å‡ºç°é—®é¢˜ï¼");
 					}
 
 				}
 				if(handleCode.matches("d")){
-					System.out.println("ÓëÉè±¸Á¬½Ó³É¹¦,code:"+handleCode);
+					System.out.println("ä¸è®¾å¤‡è¿æ¥æˆåŠŸ,code:"+handleCode);
 					this.m.device = s;
 				}
 				
 
 			}
 
-			// Èô²»ÊÇÒÔD,R,L¿ªÍ·µÄ×Ö·û´®£¬¾Í¹Ø±Õsocket£¬½áÊø½ø³Ì
+			// è‹¥ä¸æ˜¯ä»¥D,R,Lå¼€å¤´çš„å­—ç¬¦ä¸²ï¼Œå°±å…³é—­socketï¼Œç»“æŸè¿›ç¨‹
 			else {
 				try {
 					in.close();
 					out.close();
 					s.close();
 				} catch (IOException e1) {
-					// TODO ×Ô¶¯Éú³ÉµÄ catch ¿é
+					// TODO è‡ªåŠ¨ç”Ÿæˆçš„ catch å—
 					e1.printStackTrace();
 				}
 

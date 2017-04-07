@@ -14,7 +14,7 @@ public class server {
 		try {
 			serverSocket = new ServerSocket(8888);
 		} catch (IOException e) {
-			System.out.println("�˿ڱ�ռ��");
+			System.out.println("端口被占用");
 			System.exit(-1);
 			e.printStackTrace();
 		}
