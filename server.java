@@ -1,4 +1,3 @@
-package doorController;
 import java.io.IOException;
 import java.net.*;
 public class server {
